@@ -68,4 +68,10 @@ public class MenuService {
         return list;
 
     }
+
+    public int doInsert(String strCoffee, String strKind, String strPrice) {
+        int i = menuDao.doInsert(strCoffee, strKind, strPrice);
+        return i;
+
+    }
 }

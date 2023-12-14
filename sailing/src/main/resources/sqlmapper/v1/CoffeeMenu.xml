@@ -11,4 +11,22 @@
             DATE_FORMAT(mod_day, '%Y.%m.%d') AS mod_day
         FROM coffee_menu;
     </select>
+
+    <insert id="doInsert" parameterType="map">
+        INSERT INTO coffee_menu (coffee, kind, price)
+        VALUES (#{strCoffee},#{strKind},#{strPrice})
+    </insert>
+
+<!--    <update id="updateAuthor">-->
+<!--        update Author set-->
+<!--        username = #{username},-->
+<!--        password = #{password},-->
+<!--        email = #{email},-->
+<!--        bio = #{bio}-->
+<!--        where id = #{id}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteAuthor">-->
+<!--        delete from Author where id = #{id}-->
+<!--    </delete>-->
 </mapper>

@@ -37,7 +37,7 @@
       </select>
 
         &nbsp;&nbsp;<input type="submit" value="조회" style="width: 80px;height: 30px;font-weight: bold; font-size: medium">
-        &nbsp;&nbsp;<button style="width: 80px;height: 30px;font-weight: bold; font-size: medium"><a href="~~~">등록</a></button>
+        &nbsp;&nbsp;<button style="width: 80px;height: 30px;font-weight: bold; font-size: medium"><a href="/v1/menu_ins">등록</a></button>
         &nbsp;&nbsp;<button style="width: 80px;height: 30px;font-weight: bold; font-size: medium"><a href="~~~">삭제</a></button>
         <!-- <a href="javascript:loadDocArray()">test</a> -->
         <!--        <label>CheckBox : </label><span id="idCheckBox"></span>-->
@@ -66,6 +66,9 @@
 
 
     <tbody id="t_body">
+    <!--- 데이타 출력 부분 -->
+
+
     <tr th:each="prod : ${list}">
       <td>Chk</td>
       <td th:text="${prod.get('no')}">커피No</th>
@@ -85,7 +88,7 @@
   </table>
 </div>
 
-<!-- 푸터 위치 -->
+<!--푸터위치-->
 <th:block th:replace="/v1/comm/footer :: footerFragment"></th:block>
 
 </body>
