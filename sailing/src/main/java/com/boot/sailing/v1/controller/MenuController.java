@@ -1,6 +1,7 @@
 package com.boot.sailing.v1.controller;
 
 import com.boot.sailing.v1.service.MenuService;
+import com.boot.sailing.v1.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,14 +15,14 @@ import java.util.Map;
 @Controller
 public class MenuController {
 
-
-    MenuService menuService;
+    @Autowired
+    MenuService menuSvc;
 
     @RequestMapping("/v1/menu")
     public String doMenu(Model model){
 
         // Data 만들기 , List , Map
-        List<Map<String, Object>> list = menuService.doList();
+        List<Map<String, Object>> list = menuSvc.doList();
 
         // Data 송부
         model.addAttribute("list", list);
