@@ -74,4 +74,30 @@ public class MenuService {
         return i;
 
     }
+
+    public int doDelete(String strNo) {
+        int i = menuDao.doDelete(strNo);
+        return i;
+    }
+
+
+    // One row 조회
+    public Map<String, Object> doListOne(String strNo) {
+
+        Map<String,Object> map = menuDao.doListOne(strNo);
+
+        return map;
+    }
+
+    // Update
+    public int doUpdate(String strNo, String strCoffee, String strKind, String strPrice) {
+        int i = menuDao.doUpdate(strNo,strCoffee, strKind, strPrice);
+        return i;
+    }
+
+    public List<Map<String, Object>> doSearch(String strStartDate, String strEndDate, String strCoffee, String strKind) {
+
+        List<Map<String,Object>> list = menuDao.doSearch(strStartDate, strEndDate, strCoffee, strKind);
+        return list;
+    }
 }

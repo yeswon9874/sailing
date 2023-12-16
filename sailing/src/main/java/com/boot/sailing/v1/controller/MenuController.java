@@ -52,4 +52,51 @@ public class MenuController {
 
         return "redirect:/v1/menu";
     }
+
+    @GetMapping("/menu_del")
+    public String doDelete(@RequestParam("no") String strNo) {
+        log.info("strNo ::::::::::::" +  strNo);
+
+        int i = menuSvc.doDelete(strNo);
+        return "redirect:/v1/menu";
+    }
+
+    @GetMapping("/menu_up")
+    public String doUpdate(Model model, @RequestParam("no") String strNo) {
+
+        Map<String,Object> map = menuSvc.doListOne(strNo);
+
+        model.addAttribute("map", map);
+
+        return "/v1/menu/menu_up";
+    }
+
+    @PostMapping("/menu_up")
+    public String doUpdatePost(@RequestParam("no") String strNo,
+                               @RequestParam("coffee") String strCoffee,
+                               @RequestParam("kind") String strKind,
+                               @RequestParam("price") String strPrice
+    ){
+        int i = menuSvc.doUpdate(strNo,strCoffee, strKind, strPrice);
+
+        return "redirect:/v1/menu";
+    }
+
+    // 조회하기
+    @PostMapping("/menu_search")
+    public String doSearch(@RequestParam("start_date") String strStartDate,
+                           @RequestParam("end_date") String strEndDate,
+                           @RequestParam(value = "coffee", defaultValue = "ALL") String strCoffee,
+                           @RequestParam("kind") String strKind,
+                           Model model
+                           ){
+        log.info(strStartDate, strEndDate, strCoffee, strKind);
+        List<Map<String,Object>> list = menuSvc.doSearch(strStartDate, strEndDate, strCoffee, strKind);
+
+        model.addAttribute("list", list);
+
+        return "/v1/menu/menu";
+    }
+
+
 }

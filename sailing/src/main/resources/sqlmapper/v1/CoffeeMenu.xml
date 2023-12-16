@@ -7,26 +7,54 @@
     <!-- 메뉴 조회 -->
     <select id="doList" resultType="map">
         SELECT no, coffee, kind, price,
-            DATE_FORMAT(reg_day, '%Y.%m.%d') AS reg_day,
-            DATE_FORMAT(mod_day, '%Y.%m.%d') AS mod_day
-        FROM coffee_menu;
+        DATE_FORMAT(reg_day,'%Y.%m.%d') AS reg_day,
+        DATE_FORMAT(mod_day,'%Y.%m.%d') AS mod_day
+        FROM coffee_menu
     </select>
 
-    <insert id="doInsert" parameterType="map">
+    <!--  메뉴 조회 One row -->
+    <select id="doListOne" resultType="map">
+        SELECT no, coffee, kind, price,
+        DATE_FORMAT(reg_day,'%Y.%m.%d') AS reg_day,
+        DATE_FORMAT(mod_day,'%Y.%m.%d') AS mod_day
+        FROM coffee_menu
+        where no = CAST(#{strNo} as INTEGER)
+    </select>
+
+    <insert id="doInsert">
         INSERT INTO coffee_menu (coffee, kind, price)
-        VALUES (#{strCoffee},#{strKind},#{strPrice})
+        VALUES(#{strCoffee},#{strKind},CAST(#{strPrice} as INTEGER))
     </insert>
 
-<!--    <update id="updateAuthor">-->
-<!--        update Author set-->
-<!--        username = #{username},-->
-<!--        password = #{password},-->
-<!--        email = #{email},-->
-<!--        bio = #{bio}-->
-<!--        where id = #{id}-->
-<!--    </update>-->
+    <update id="doUpdate">
+        update coffee_menu
+        set
+            coffee = #{strCoffee},
+            kind = #{strKind},
+            price = CAST(#{strPrice} as INTEGER)
+        where no = CAST(#{strNo} as INTEGER)
+    </update>
 
-<!--    <delete id="deleteAuthor">-->
-<!--        delete from Author where id = #{id}-->
-<!--    </delete>-->
+    <delete id="doDelete">
+        Delete from coffee_menu where no = CAST(#{strNo} as INTEGER)
+    </delete>
+
+    <!-- 검색에 의한 쿼리   -->
+    <select id="doSearch" resultType="map">
+        SELECT no, coffee, kind, price,
+            DATE_FORMAT(reg_day,'%Y.%m.%d') AS reg_day,
+            DATE_FORMAT(mod_day,'%Y.%m.%d') AS mod_day
+        FROM coffee_menu
+        WHERE 1=1
+        AND reg_day >= DATE_FORMAT( #{strStartDate},'%Y%m%d')
+        AND reg_day &lt; DATE_ADD(DATE_FORMAT(#{strEndDate},'%Y%m%d'), INTERVAL +1 DAY)
+        <if test="strCoffee != 'ALL'">
+            AND coffee like CONCAT(#{strCoffee},'%')
+        </if>
+        <if test="strKind != 'ALL'">
+            AND kind = #{strKind}
+        </if>
+    </select>
+
+
 </mapper>
